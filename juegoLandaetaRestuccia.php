@@ -6,6 +6,8 @@
     Landaeta Lucía Anahí          FAI-1981
 
  * REPOSIORIOS GIT
+ * https://github.com/Joshua-Restuccia/phpAhorcadoGrupo5.git
+ * https://github.com/Lucia-Landaeta/-phpAhorcadoGrupo5.git
 
  ******************************************/
 
@@ -13,7 +15,8 @@
  * Genera un arreglo de palabras para jugar
  * @return array
  */
-function cargarPalabras(){
+function cargarPalabras()
+{
     /** @var array $coleccionPalabras */
     $coleccionPalabras = array();
     $coleccionPalabras[0] = array("palabra" => "papa", "pista" => "se cultiva bajo tierra", "puntosPalabra" => 7);
@@ -31,7 +34,8 @@ function cargarPalabras(){
  * /*Genera un arreglo de juegos previos 
  * @return array
  */
-function cargarJuegos(){
+function cargarJuegos()
+{
     /** @var array $coleccionJuegos */
     $coleccionJuegos = array();
     $coleccionJuegos[0] = array("puntos" => 0, "indicePalabra" => 1);
@@ -50,7 +54,8 @@ function cargarJuegos(){
  * @param string $palabra
  * @return array
  */
-function dividirPalabraEnLetras($palabra){
+function dividirPalabraEnLetras($palabra)
+{
     /** 
      * @var array $coleccionLetras
      *@var int $tamanio , $i */
@@ -66,12 +71,13 @@ function dividirPalabraEnLetras($palabra){
  * Muestra y obtiene una opcion de menú ***válida***
  * @return int
  */
-function seleccionarOpcion(){
+function seleccionarOpcion()
+{
     /** @var int $opcion 
      *@var boolean $esValido */
     $esValido = false;
 
-    echo "\n"." Ingrese una opcion: " . "\n";
+    echo "\n" . " Ingrese una opcion: " . "\n";
     echo "--------------------------------------------------------------";
     echo "\n ( 1 ) Jugar con una palabra aleatoria";
     echo "\n ( 2 ) Jugar con una palabra seleccionada";
@@ -82,7 +88,7 @@ function seleccionarOpcion(){
     echo "\n ( 7 ) Mostrar la lista de palabras en orden alfabetico";
     echo "\n ( 8 ) Salir del juego";
     echo "\n--------------------------------------------------------------\n";
-    
+
     do {
         $opcion = trim(fgets(STDIN));
 
@@ -102,9 +108,10 @@ function seleccionarOpcion(){
  * @param string $palabra
  * @return boolean
  */
-function existePalabra($coleccionPalabras, $palabra){
-/** @var int $i, $cantPal 
- * @var boolean $existe */
+function existePalabra($coleccionPalabras, $palabra)
+{
+    /** @var int $i, $cantPal 
+     * @var boolean $existe */
     $i = 0;
     $cantPal = count($coleccionPalabras);
     $existe = false;
@@ -122,7 +129,8 @@ function existePalabra($coleccionPalabras, $palabra){
  * @param string $letra
  * @return boolean
  */
-function existeLetra($coleccionLetras, $letra){
+function existeLetra($coleccionLetras, $letra)
+{
     /** @var boolean $existe
      *@var int $i , $tamanio  */
     $tamanio = count($coleccionLetras);
@@ -143,26 +151,27 @@ function existeLetra($coleccionLetras, $letra){
  * @param array $coleccionPalabras
  * @return array  //coleccionPalabras modificada con la nueva palabra.
  */
-function agregarPalabra($coleccionPalabras){
+function agregarPalabra($coleccionPalabras)
+{
     /** @var int $i, $puntaje
      *@var boolean $encontrado
      *@var String $palabraNueva , $pista */
     $encontrado = true;
-            
+
     while ($encontrado) {
         echo "Ingrese la nueva palabra:" . "\n";
         $palabraNueva = strtolower(trim(fgets(STDIN)));
-        
-        if (existePalabra($coleccionPalabras,$palabraNueva)) {
-            echo "La palabra: '".$palabraNueva."'. Ya existe!\n";
-        }else{            
-                echo "Ingrese la pista de la palabra:"."\n";
-                $pista = trim(fgets(STDIN));
-                echo "Ingrese el puntaje de la palabra"."\n";
-                $puntaje = trim(fgets(STDIN));
-                $coleccionPalabras[] = array("palabra" => $palabraNueva, "pista" => $pista, "puntosPalabra" => $puntaje);
-                $encontrado=false;
-        }       
+
+        if (existePalabra($coleccionPalabras, $palabraNueva)) {
+            echo "La palabra: '" . $palabraNueva . "'. Ya existe!\n";
+        } else {
+            echo "Ingrese la pista de la palabra:" . "\n";
+            $pista = trim(fgets(STDIN));
+            echo "Ingrese el puntaje de la palabra" . "\n";
+            $puntaje = trim(fgets(STDIN));
+            $coleccionPalabras[] = array("palabra" => $palabraNueva, "pista" => $pista, "puntosPalabra" => $puntaje);
+            $encontrado = false;
+        }
     }
     return $coleccionPalabras;
 }
@@ -173,9 +182,10 @@ function agregarPalabra($coleccionPalabras){
  * @param int $max
  * @return int
  */
-function indiceAleatorioEntre($min, $max){
-/** 
- * @var int $i */
+function indiceAleatorioEntre($min, $max)
+{
+    /** 
+     * @var int $i */
     $i = rand($min, $max); // La funcion rand, genera un número entero aleatorio, entre los rangos asignados
     return $i;
 }
@@ -186,9 +196,10 @@ function indiceAleatorioEntre($min, $max){
  * @param int $max
  * @return int
  */
-function solicitarIndiceEntre($min, $max){
-/**
- * @var int $i  */
+function solicitarIndiceEntre($min, $max)
+{
+    /**
+     * @var int $i  */
     do {
         echo "Seleccione un valor entre $min y $max: \n";
         $i = trim(fgets(STDIN));
@@ -202,14 +213,15 @@ function solicitarIndiceEntre($min, $max){
  * @param array $coleccionLetras
  * @return boolean
  */
-function palabraDescubierta($coleccionLetras){
-/** 
- * @var int $i , $tamanio
- * @var boolean $descubierto */
+function palabraDescubierta($coleccionLetras)
+{
+    /** 
+     * @var int $i , $tamanio
+     * @var boolean $descubierto */
     $descubierto = true;
     $i = 0;
     $tamanio = count($coleccionLetras);
-    while ($i <$tamanio && $descubierto) {
+    while ($i < $tamanio && $descubierto) {
         $descubierto = $coleccionLetras[$i]["descubierta"];
         $i++;
     }
@@ -220,10 +232,11 @@ function palabraDescubierta($coleccionLetras){
  * Solicita una letra al usuario, y valida que el string ingresado tenga un único carácter
  * @return String
  */
-function solicitarLetra(){
-/** 
-* @var boolean $letraCorrecta 
-* @var String letra  */
+function solicitarLetra()
+{
+    /** 
+     * @var boolean $letraCorrecta 
+     * @var String letra  */
     $letraCorrecta = false;
     do {
         echo "Ingrese una letra: ";
@@ -244,8 +257,9 @@ function solicitarLetra(){
  * @param string $letra
  * @return array //colección de letras modificada.
  */
-function destaparLetra($coleccionLetras, $letra){
-/** @var int $i, $tamanio  */
+function destaparLetra($coleccionLetras, $letra)
+{
+    /** @var int $i, $tamanio  */
     $tamanio = count($coleccionLetras);
     for ($i = 0; $i < $tamanio; $i++) {
         if ($coleccionLetras[$i]["letra"] == $letra) {
@@ -260,16 +274,17 @@ function destaparLetra($coleccionLetras, $letra){
  * @param array $coleccionLetras
  * @return string  Ejemplo: "he**t*t*s"
  */
-function stringLetrasDescubiertas($coleccionLetras){
-/** 
- * @var String $pal   
- * @var int $tamanio , $i  */
+function stringLetrasDescubiertas($coleccionLetras)
+{
+    /** 
+     * @var String $pal   
+     * @var int $tamanio , $i  */
     $pal = "";
     $tamanio = count($coleccionLetras);
-    for($i = 0;$i<$tamanio;$i++){
-        if($coleccionLetras[$i]["descubierta"]){
+    for ($i = 0; $i < $tamanio; $i++) {
+        if ($coleccionLetras[$i]["descubierta"]) {
             $pal = $pal . $coleccionLetras[$i]["letra"];
-        }else{ 
+        } else {
             $pal = $pal . "*";
         }
     }
@@ -286,39 +301,39 @@ function stringLetrasDescubiertas($coleccionLetras){
  * @param int $cantIntentos
  * @return int 
  */
-function jugar($coleccionPalabras, $indicePalabra, $cantIntentos){
-/** 
-* @var int $puntaje
-* @var String $pal,$letra
-* @var array $coleccionLetras
-* @var boolean $palabraFueDescubierta , $existeLet */
+function jugar($coleccionPalabras, $indicePalabra, $cantIntentos)
+{
+    /** 
+     * @var int $puntaje
+     * @var String $pal,$letra
+     * @var array $coleccionLetras
+     * @var boolean $palabraFueDescubierta , $existeLet */
 
     $pal = $coleccionPalabras[$indicePalabra]["palabra"];
     $coleccionLetras = dividirPalabraEnLetras($pal);
     $puntaje = 0;
 
     $palabraFueDescubierta = false;
-    echo "\nPista: ".$coleccionPalabras[$indicePalabra]["pista"]."\n";
+    echo "\nPista: " . $coleccionPalabras[$indicePalabra]["pista"] . "\n";
 
-    while($cantIntentos > 0 && !$palabraFueDescubierta){
+    while ($cantIntentos > 0 && !$palabraFueDescubierta) {
         $letra = solicitarLetra();
-        $existeLet = existeLetra($coleccionLetras,$letra);
-        if($existeLet){
-            echo"\nLa letra '".$letra."' pertenece a la palabra.\n";
-            $coleccionLetras = destaparLetra($coleccionLetras,$letra);
+        $existeLet = existeLetra($coleccionLetras, $letra);
+        if ($existeLet) {
+            echo "\nLa letra '" . $letra . "' pertenece a la palabra.\n";
+            $coleccionLetras = destaparLetra($coleccionLetras, $letra);
             $palabraFueDescubierta = palabraDescubierta($coleccionLetras);
-        }else{
+        } else {
             $cantIntentos--;
-            echo"\nLa letra '".$letra."' NO pertenece a la palabra. Quedan ".$cantIntentos." intentos."."\n";
-            
+            echo "\nLa letra '" . $letra . "' NO pertenece a la palabra. Quedan " . $cantIntentos . " intentos." . "\n";
         }
-        echo "Palabra a descubrir:  ".stringLetrasDescubiertas($coleccionLetras)."\n\n";
+        echo "Palabra a descubrir:  " . stringLetrasDescubiertas($coleccionLetras) . "\n\n";
     }
-    if($palabraFueDescubierta){
-        $puntaje = $coleccionPalabras[$indicePalabra]["puntosPalabra"]+$cantIntentos;
-        echo"¡¡¡Ganaste ". $puntaje. " puntos!!!\n";
-    }else{
-       echo"¡¡¡Ahorcado, Ahorcado!!!!\n";
+    if ($palabraFueDescubierta) {
+        $puntaje = $coleccionPalabras[$indicePalabra]["puntosPalabra"] + $cantIntentos;
+        echo "¡¡¡Ganaste " . $puntaje . " puntos!!!\n";
+    } else {
+        echo "¡¡¡Ahorcado, Ahorcado!!!!\n";
     }
     return $puntaje;
 }
@@ -330,9 +345,10 @@ function jugar($coleccionPalabras, $indicePalabra, $cantIntentos){
  * @param int $indicePalabra
  * @return array 
  */
-function agregarJuego($coleccionJuegos, $puntos, $indicePalabra){
+function agregarJuego($coleccionJuegos, $puntos, $indicePalabra)
+{
 
-    $coleccionJuegos[] = array("puntos"=> $puntos, "indicePalabra" => $indicePalabra);    
+    $coleccionJuegos[] = array("puntos" => $puntos, "indicePalabra" => $indicePalabra);
     return $coleccionJuegos;
 }
 
@@ -341,11 +357,12 @@ function agregarJuego($coleccionJuegos, $puntos, $indicePalabra){
  * @param array $coleccionPalabras
  * @param int $indicePalabra
  */
-function mostrarPalabra($coleccionPalabras, $indicePalabra){
+function mostrarPalabra($coleccionPalabras, $indicePalabra)
+{
 
-    echo "  Palabra: ".$coleccionPalabras[$indicePalabra]["palabra"]."\n";
-    echo "  Pista: ".$coleccionPalabras[$indicePalabra]["pista"]."\n";
-    echo "  Puntos palabra: ".$coleccionPalabras[$indicePalabra]["puntosPalabra"]."\n";
+    echo "  Palabra: " . $coleccionPalabras[$indicePalabra]["palabra"] . "\n";
+    echo "  Pista: " . $coleccionPalabras[$indicePalabra]["pista"] . "\n";
+    echo "  Puntos palabra: " . $coleccionPalabras[$indicePalabra]["puntosPalabra"] . "\n";
 }
 
 /**
@@ -354,8 +371,9 @@ function mostrarPalabra($coleccionPalabras, $indicePalabra){
  * @param array $coleccionPalabras
  * @param int $indiceJuego
  */
-function mostrarJuego($coleccionJuegos, $coleccionPalabras, $indiceJuego){
-//array("puntos"=> 8, "indicePalabra" => 1)
+function mostrarJuego($coleccionJuegos, $coleccionPalabras, $indiceJuego)
+{
+    //array("puntos"=> 8, "indicePalabra" => 1)
     echo "\n\n";
     echo "<-<-< Juego " . $indiceJuego . " >->->\n";
     echo "Puntos ganados: " . $coleccionJuegos[$indiceJuego]["puntos"] . "\n";
@@ -369,21 +387,23 @@ function mostrarJuego($coleccionJuegos, $coleccionPalabras, $indiceJuego){
  * @param array $coleccionPalabras
  * @param array $coleccionJuegos
  */
-function mostrarJuegoElegido($coleccionJuegos,$coleccionPalabras){
-/**
- * @var int $indiceJuego  */
-    $indiceJuego = solicitarIndiceEntre(0, count($coleccionJuegos)-1); 
-    mostrarJuego($coleccionJuegos,$coleccionPalabras,$indiceJuego);
+function mostrarJuegoElegido($coleccionJuegos, $coleccionPalabras)
+{
+    /**
+     * @var int $indiceJuego  */
+    $indiceJuego = solicitarIndiceEntre(0, count($coleccionJuegos) - 1);
+    mostrarJuego($coleccionJuegos, $coleccionPalabras, $indiceJuego);
 }
 
 /** 
  * Muestra los datos completos del juego con mayor puntaje
  * @param array $coleccionJuegos
  * @param $coleccionPalabra */
-function  mostrarJuegoMayorPuntaje ($coleccionJuegos,$coleccionPalabras){
-/** @var int $indice */
+function  mostrarJuegoMayorPuntaje($coleccionJuegos, $coleccionPalabras)
+{
+    /** @var int $indice */
     $indice = partidaMayorPuntaje($coleccionJuegos);
-    mostrarJuego($coleccionJuegos,$coleccionPalabras,$indice);
+    mostrarJuego($coleccionJuegos, $coleccionPalabras, $indice);
 }
 
 
@@ -391,15 +411,16 @@ function  mostrarJuegoMayorPuntaje ($coleccionJuegos,$coleccionPalabras){
  * Muestra los datos completos del primer juego con mayor puntaje al ingresado
  * @param array $coleccionJuegos
  * @param $coleccionPalabras */
-function mostrarJuegoMayorPuntajeDado ($coleccionJuegos,$coleccionPalabras) {
-/** @var int $indice , $puntaje  */
-    echo"Ingrese el puntaje que desea superar."."\n";
-    $puntaje=trim(fgets(STDIN));
-    $indice = partidaMayorPuntajeDado($coleccionJuegos,$puntaje);
-    if($indice != -1){
-        mostrarJuego($coleccionJuegos,$coleccionPalabras,$indice);
-    }else{
-        echo"No hay ningún juego que supere el puntaje \n".$puntaje;
+function mostrarJuegoMayorPuntajeDado($coleccionJuegos, $coleccionPalabras)
+{
+    /** @var int $indice , $puntaje  */
+    echo "Ingrese el puntaje que desea superar." . "\n";
+    $puntaje = trim(fgets(STDIN));
+    $indice = partidaMayorPuntajeDado($coleccionJuegos, $puntaje);
+    if ($indice != -1) {
+        mostrarJuego($coleccionJuegos, $coleccionPalabras, $indice);
+    } else {
+        echo "No hay ningún juego que supere el puntaje \n" . $puntaje;
     }
 }
 
@@ -407,11 +428,12 @@ function mostrarJuegoMayorPuntajeDado ($coleccionJuegos,$coleccionPalabras) {
 /** 
  * Muestra la informacion de las palabras, en orden alfabetico 
  * @param $coleccionPalabra */
-function mostrarPalabrasOrdenadas($coleccionPalabras){
-/** 
- * @var array $palabra  */
+function mostrarPalabrasOrdenadas($coleccionPalabras)
+{
+    /** 
+     * @var array $palabra  */
     asort($coleccionPalabras);
-    foreach($coleccionPalabras as $palabra){
+    foreach ($coleccionPalabras as $palabra) {
         print_r($palabra);  // la funcion print_r, muestra información sobre una variable en una forma que es legible por humanos.
     }
 }
@@ -421,14 +443,15 @@ function mostrarPalabrasOrdenadas($coleccionPalabras){
  * @param array $coleccionJuegos
  * @return int
  */
-function partidaMayorPuntaje($coleccionJuegos){
-/** 
- * @var int $indiceMayorPuntaje, $puntajeMayor, $i,$tamanio 
- */
+function partidaMayorPuntaje($coleccionJuegos)
+{
+    /** 
+     * @var int $indiceMayorPuntaje, $puntajeMayor, $i,$tamanio 
+     */
     $tamanio = count($coleccionJuegos);
     $puntajeMayor = 0;
-    for ($i=0; $i< $tamanio ;$i++){
-        if($coleccionJuegos[$i]["puntos"]>$puntajeMayor){
+    for ($i = 0; $i < $tamanio; $i++) {
+        if ($coleccionJuegos[$i]["puntos"] > $puntajeMayor) {
             $puntajeMayor = $coleccionJuegos[$i]["puntos"];
             $indiceMayorPuntaje = $i;
         }
@@ -442,14 +465,15 @@ function partidaMayorPuntaje($coleccionJuegos){
  * @param int $puntaje
  * @return int
  */
-function partidaMayorPuntajeDado($coleccionJuegos, $puntaje){
-/** 
- * @var int $i, $indice, $tamanio */
+function partidaMayorPuntajeDado($coleccionJuegos, $puntaje)
+{
+    /** 
+     * @var int $i, $indice, $tamanio */
     $tamanio = count($coleccionJuegos);
     $indice = -1;
     $i = 0;
-    while($i < $tamanio && $indice==-1){
-        if($coleccionJuegos[$i]["puntos"]>$puntaje){
+    while ($i < $tamanio && $indice == -1) {
+        if ($coleccionJuegos[$i]["puntos"] > $puntaje) {
             $indice = $i;
         }
         $i++;
@@ -465,13 +489,14 @@ function partidaMayorPuntajeDado($coleccionJuegos, $puntaje){
  * @param int $cantIntentos
  * @return array
  */
-function jugarPalabraAleatoria($coleccionPalabras, $coleccionJuegos, $cantIntentos){
+function jugarPalabraAleatoria($coleccionPalabras, $coleccionJuegos, $cantIntentos)
+{
     /** 
      * @var int $indice, $tamanioPalabras, $puntaje */
-    $tamanioPalabras = count($coleccionPalabras)-1;
-    $indice = indiceAleatorioEntre(0,$tamanioPalabras);
+    $tamanioPalabras = count($coleccionPalabras) - 1;
+    $indice = indiceAleatorioEntre(0, $tamanioPalabras);
     $puntaje = jugar($coleccionPalabras, $indice, $cantIntentos);
-    $coleccionJuegos= agregarJuego($coleccionJuegos, $puntaje, $indice);
+    $coleccionJuegos = agregarJuego($coleccionJuegos, $puntaje, $indice);
 
     return $coleccionJuegos;
 }
@@ -484,11 +509,12 @@ function jugarPalabraAleatoria($coleccionPalabras, $coleccionJuegos, $cantIntent
  * @param int $cantIntentos
  * @return array
  */
-function jugarPalabraElegida($coleccionPalabras,$coleccionJuegos, $cantIntentos ){
-/** 
- * @var int indice, tamanioPalabras,tamanioJuegos, puntaje */ 
-    $tamanioPalabras = count($coleccionPalabras)-1;
-    $indice = solicitarIndiceEntre(0,$tamanioPalabras);
+function jugarPalabraElegida($coleccionPalabras, $coleccionJuegos, $cantIntentos)
+{
+    /** 
+     * @var int indice, tamanioPalabras,tamanioJuegos, puntaje */
+    $tamanioPalabras = count($coleccionPalabras) - 1;
+    $indice = solicitarIndiceEntre(0, $tamanioPalabras);
     $puntaje = jugar($coleccionPalabras, $indice, $cantIntentos);
     $coleccionJuegos = agregarJuego($coleccionJuegos, $puntaje, $indice);
 
@@ -504,7 +530,7 @@ function jugarPalabraElegida($coleccionPalabras,$coleccionJuegos, $cantIntentos 
  * @var array $coleccionPalabras ,$coleccionJuegos
  * @var int $indiceJuego 
  */
-define("CANT_INTENTOS",6); //Constante en php para cantidad de intentos que tendrá el jugador para adivinar la palabra.
+define("CANT_INTENTOS", 6); //Constante en php para cantidad de intentos que tendrá el jugador para adivinar la palabra.
 
 $coleccionPalabras = cargarPalabras();
 $coleccionJuegos = cargarJuegos();
@@ -513,22 +539,22 @@ do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {   //La sentencia SWiTCH es similar a una serie de sentencias IF en la misma expresión.
         case 1: //Jugar con una palabra aleatoria
-            $coleccionJuegos = jugarPalabraAleatoria($coleccionPalabras,$coleccionJuegos,CANT_INTENTOS);
+            $coleccionJuegos = jugarPalabraAleatoria($coleccionPalabras, $coleccionJuegos, CANT_INTENTOS);
             break;
         case 2: //Jugar con una palabra elegida
-            $coleccionJuegos = jugarPalabraElegida($coleccionPalabras,$coleccionJuegos,CANT_INTENTOS);
+            $coleccionJuegos = jugarPalabraElegida($coleccionPalabras, $coleccionJuegos, CANT_INTENTOS);
             break;
         case 3: //Agregar una palabra al listado
             $coleccionPalabras = agregarPalabra($coleccionPalabras);
             break;
         case 4: //Mostrar la información completa de un número de juego
-            mostrarJuegoElegido($coleccionJuegos,$coleccionPalabras);
+            mostrarJuegoElegido($coleccionJuegos, $coleccionPalabras);
             break;
         case 5: //Mostrar la información completa del primer juego con más puntaje
-            mostrarJuegoMayorPuntaje ($coleccionJuegos,$coleccionPalabras);
+            mostrarJuegoMayorPuntaje($coleccionJuegos, $coleccionPalabras);
             break;
         case 6: //Mostrar la información completa del primer juego que supere un puntaje indicado por el usuario
-            mostrarJuegoMayorPuntajeDado ($coleccionJuegos,$coleccionPalabras);
+            mostrarJuegoMayorPuntajeDado($coleccionJuegos, $coleccionPalabras);
             break;
         case 7: //Mostrar la lista de palabras ordenada por orden alfabetico
             mostrarPalabrasOrdenadas($coleccionPalabras);
